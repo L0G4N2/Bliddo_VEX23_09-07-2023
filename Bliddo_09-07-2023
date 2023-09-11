@@ -170,22 +170,21 @@ using namespace vex;
 // Begin project code
 
 void preAutonomous(void) {
-  // actions to do when the program starts
+  //Actions to do when the program starts
   Brain.Screen.clearScreen();
   Brain.Screen.print("pre auton code");
-  //Calibrating the Inertial Sensor
-  DrivetrainInertial.calibrate();
-  while (DrivetrainInertial.isCalibrating()) {
-    wait(1, seconds);
-  }
+  //Setting drive velocity to the recommended max
   Drivetrain.setDriveVelocity(85, percent);
 }
 
 void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
-  // place automonous code here
-
+  //Calibrating the Inertial Sensor
+  DrivetrainInetial.calibrate();
+  while (DrivetrainInertial.isCalibrating()) {
+    wait(100, msec);
+  }
 //-----------------------------------------------------------------------------------------------
 //
 //     The robot do the following actions:
