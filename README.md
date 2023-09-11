@@ -1,4 +1,4 @@
-This is C++ code for 77038B Team.
+This is the C++ code for 77038B Team.
 
 The robot has a 4-Motor Drivetrain and an Inertial Sensor that is used for auton.
 
