@@ -3,6 +3,14 @@
 #include <stdbool.h>
 #include <math.h>
 #include <string.h>
+#include "vex.h"
+
+using namespace vex;
+
+//Brain should be defined by default
+brain Brain;
+
+
 
 void autonomous(void) {
   Brain.Screen.clearScreen();
