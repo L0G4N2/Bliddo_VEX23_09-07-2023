@@ -1,1 +1,53 @@
 
+
+void autonomous(void) {
+  Brain.Screen.clearScreen();
+  Brain.Screen.print("autonomous code");
+  //Setting drive velocity to the recommended max
+  Drivetrain.setDriveVelocity(85, percent);
+  //Calibrating the Inertial Sensor
+  DrivetrainInertial.calibrate();
+  while (DrivetrainInertial.isCalibrating()) {
+    wait(100, msec);
+  }
+  Drivetrain.setDriveVelocity(85, percent);
+  //Drive forward for 0.7 seconds
+  Drivetrain.drive(forward);
+  wait(700, msec);
+  Drivetrain.stop();
+  //90 degree turn with inertial sensor
+  Drivetrain.turn(right);
+  waitUntil((DrivetrainInertial.rotation(degrees) >= 90.0));
+  Drivetrain.stop();
+  wait(1, seconds);
+  //Drive forward for 0.7 seconds
+  Drivetrain.drive(forward);
+  wait(700, msec);
+  Drivetrain.stop();
+  //Drive whenever the roll is less than or equal to 0
+  Drivetrain.drive(forward);
+  waitUntil((DrivetrainInertial.orientation(roll, degrees) < 0));
+  Drivetrain.setDriveVelocity(60, pct);
+  Drivetrain.drive(forward);
+  wait(500, msec);
+  Drivetrain.stop();
+  wait(1, seconds);
+  Drivetrain.setDriveVelocity(50, pct);
+  //Drive forward for 0.7 seconds
+  Drivetrain.drive(reverse);
+  wait(700, msec);
+  Drivetrain.stop();
+//-----------------------------------------------------------------------------------------------
+//
+//     The robot do the following actions:
+//
+//     1. Remove the Triball from the Alliance’s Match Load Zone that coincides with their Starting
+//     Tiles.
+//     2. Score at least one Alliance Triball in the Alliance’s own Goal.
+//     3. Ended the Autonomous Period with at least one Robot contacting their own Elevation Bar.
+//     4. Not violate any rules.
+//
+//-----------------------------------------------------------------------------------------------
+
+}
+
