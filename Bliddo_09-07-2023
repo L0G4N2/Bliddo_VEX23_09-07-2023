@@ -28,13 +28,13 @@ brain Brain;
 
 // Robot configuration code.
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT10, ratio18_1, false);
-motor leftMotorB = motor(PORT1, ratio18_1, false);
+motor leftMotorA = motor(PORT12, ratio18_1, false);
+motor leftMotorB = motor(PORT20, ratio18_1, false);
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
-motor rightMotorA = motor(PORT20, ratio18_1, true);
-motor rightMotorB = motor(PORT11, ratio18_1, true);
+motor rightMotorA = motor(PORT1, ratio18_1, true);
+motor rightMotorB = motor(PORT10, ratio18_1, true);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
-inertial DrivetrainInertial = inertial(PORT9);
+inertial DrivetrainInertial = inertial(PORT13;
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
 
 motor Intake = motor(PORT5, ratio18_1, false);
@@ -181,9 +181,7 @@ void autonomous(void) {
   //Setting drive velocity to the recommended max
   Drivetrain.setDriveVelocity(85, percent);
   //Calibrating the Inertial Sensor
-  DrivetrainInertial.calibrate();
-  while (DrivetrainInertial.isCalibrating()) {
-    wait(100, msec);
+  calibrateDrivetrain();
   }
   Drivetrain.setDriveVelocity(85, percent);
   //Drive forward for 0.7 seconds
