@@ -13,15 +13,39 @@ brain Brain;
 
 
 
+
+//-----------------------------------------------------------------------------------------------
+//
+//     The robot do the following actions:
+//
+//     1. Remove the Triball from the Alliance’s Match Load Zone that coincides with their Starting
+//     Tiles.
+//     2. Score at least one Alliance Triball in the Alliance’s own Goal.
+//     3. Ended the Autonomous Period with at least one Robot contacting their own Elevation Bar.
+//     4. Not violate any rules.
+//
+//-----------------------------------------------------------------------------------------------
+
+
+
+
+void calibrateDrivetrain(void) {
+  wait(200, msec);
+  Brain.Screen.print("Calibrating");
+  Brain.Screen.newLine();
+  Brain.Screen.print("Inertial");
+  DrivetrainInertial.calibrate();
+  while (DrivetrainInertial.isCalibrating()) {
+    wait(25, msec);
+}
+
 void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
   //Setting drive velocity to the recommended max
   Drivetrain.setDriveVelocity(85, percent);
   //Calibrating the Inertial Sensor
-  DrivetrainInertial.calibrate();
-  while (DrivetrainInertial.isCalibrating()) {
-    wait(100, msec);
+  calibrateDrivetrain();
   }
   Drivetrain.setDriveVelocity(85, percent);
   //Drive forward for 0.7 seconds
@@ -50,17 +74,4 @@ void autonomous(void) {
   Drivetrain.drive(reverse);
   wait(700, msec);
   Drivetrain.stop();
-//-----------------------------------------------------------------------------------------------
-//
-//     The robot do the following actions:
-//
-//     1. Remove the Triball from the Alliance’s Match Load Zone that coincides with their Starting
-//     Tiles.
-//     2. Score at least one Alliance Triball in the Alliance’s own Goal.
-//     3. Ended the Autonomous Period with at least one Robot contacting their own Elevation Bar.
-//     4. Not violate any rules.
-//
-//-----------------------------------------------------------------------------------------------
-
 }
-
