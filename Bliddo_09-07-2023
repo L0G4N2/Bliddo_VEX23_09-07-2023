@@ -28,16 +28,16 @@ brain Brain;
 
 // Robot configuration code.
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT12, ratio18_1, false);
-motor leftMotorB = motor(PORT20, ratio18_1, false);
+motor leftMotorA = motor(PORT12, ratio18_1, true);
+motor leftMotorB = motor(PORT20, ratio18_1, true);
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
-motor rightMotorA = motor(PORT1, ratio18_1, true);
-motor rightMotorB = motor(PORT10, ratio18_1, true);
+motor rightMotorA = motor(PORT1, ratio18_1, false);
+motor rightMotorB = motor(PORT10, ratio18_1, false);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
-inertial DrivetrainInertial = inertial(PORT13;
+inertial DrivetrainInertial = inertial(PORT13);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
 
-motor Intake = motor(PORT5, ratio18_1, false);
+motor Catapult = motor(PORT17, ratio18_1, false);
 
 
 void calibrateDrivetrain() {
@@ -67,7 +67,7 @@ void playVexcodeSound(const char *soundName) {
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
-bool Controller1RightShoulderControlMotorsStopped = true;
+bool Controller1LeftShoulderControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
@@ -129,17 +129,17 @@ int rc_auto_loop_function_Controller1() {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
       }
-      // check the ButtonR1/ButtonR2 status to control Intake
-      if (Controller1.ButtonR1.pressing()) {
-        Intake.spin(reverse);
-        Controller1RightShoulderControlMotorsStopped = false;
-      } else if (Controller1.ButtonR2.pressing()) {
-        Intake.spin(forward);
-        Controller1RightShoulderControlMotorsStopped = false;
-      } else if (!Controller1RightShoulderControlMotorsStopped) {
-        Intake.stop();
+      // check the ButtonL1/ButtonL2 status to control Catapult
+      if (Controller1.ButtonL1.pressing()) {
+        Catapult.spin(forward);
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else if (Controller1.ButtonL2.pressing()) {
+        Catapult.spin(reverse);
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else if (!Controller1LeftShoulderControlMotorsStopped) {
+        Catapult.stop();
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
-        Controller1RightShoulderControlMotorsStopped = true;
+        Controller1LeftShoulderControlMotorsStopped = true;
       }
     }
     // wait before repeating the process
@@ -180,37 +180,26 @@ void autonomous(void) {
   Brain.Screen.print("autonomous code");
   //Setting drive velocity to the recommended max
   Drivetrain.setDriveVelocity(85, percent);
-  //Calibrating the Inertial Sensor
+  //Calibrating the Inertial Sensor(Drivetrain)
   calibrateDrivetrain();
   }
   Drivetrain.setDriveVelocity(85, percent);
   //Drive forward for 0.7 seconds
   Drivetrain.drive(forward);
   wait(700, msec);
-  // Drivetrain.stop();
-  // //90 degree turn with inertial sensor
-  // Drivetrain.turn(right);
-  // waitUntil((DrivetrainInertial.rotation(degrees) >= 90.0));
-  // Drivetrain.stop();
-  // wait(1, seconds);
-  // //Drive forward for 0.7 seconds
-  // Drivetrain.drive(forward);
-  // wait(700, msec);
-  // Drivetrain.stop();
-  // //Drive whenever the roll is less than or equal to 0
-  // Drivetrain.drive(forward);
-  // waitUntil((DrivetrainInertial.orientation(roll, degrees) < 0));
-  // Drivetrain.setDriveVelocity(60, pct);
-  // Drivetrain.drive(forward);
-  // wait(500, msec);
-  // Drivetrain.stop();
-  // wait(1, seconds);
-  // Drivetrain.setDriveVelocity(50, pct);
-  // //Drive forward for 0.7 seconds
-  // Drivetrain.drive(reverse);
-  // wait(700, msec);
-  // Drivetrain.stop();
-}
+  Drivetrain.stop();
+
+//-----------------------------------------------------------------------------------------------
+//
+//     The robot must do the following actions:
+//
+//     1. Remove the Triball from the Alliance’s Match Load Zone that coincides with their Starting
+//     Tiles.
+//     2. Score at least one Alliance Triball in the Alliance’s own Goal.
+//     3. Ended the Autonomous Period with at least one Robot contacting their own Elevation Bar.
+//     4. Not violate any rules.
+//
+//-----------------------------------------------------------------------------------------------
 
 void userControl(void) {
   Brain.Screen.clearScreen();
