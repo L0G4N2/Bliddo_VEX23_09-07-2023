@@ -182,12 +182,11 @@ void autonomous(void) {
   Drivetrain.setDriveVelocity(85, percent);
   //Calibrating the Inertial Sensor(Drivetrain)
   calibrateDrivetrain();
-  }
-  Drivetrain.setDriveVelocity(85, percent);
   //Drive forward for 0.7 seconds
   Drivetrain.drive(forward);
   wait(700, msec);
   Drivetrain.stop();
+  }
 
 //-----------------------------------------------------------------------------------------------
 //

@@ -6,6 +6,6 @@ There will be more updates as the season progresses.
 
 Auton: Work in progress
 
-Auton Skills: The robot starts on the right side of the net and drives over the bar at the end of the code.
+Auton Skills: The robot starts on the right side of the net and continues on the *Auton* code.
 
-*Auton Skills is being borrowed from previous code that was made in the summer of 2023*
+*Auton Skills is inspired from previous code that was made in the summer of 2023*
