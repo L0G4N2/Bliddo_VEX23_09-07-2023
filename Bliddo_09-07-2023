@@ -28,11 +28,11 @@ brain Brain;
 
 // Robot configuration code.
 controller Controller1 = controller(primary);
-motor leftMotorA = motor(PORT12, ratio18_1, true);
-motor leftMotorB = motor(PORT20, ratio18_1, true);
+motor leftMotorA = motor(PORT12, ratio18_1, false);
+motor leftMotorB = motor(PORT20, ratio18_1, false);
 motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
-motor rightMotorA = motor(PORT1, ratio18_1, false);
-motor rightMotorB = motor(PORT10, ratio18_1, false);
+motor rightMotorA = motor(PORT1, ratio18_1, true);
+motor rightMotorB = motor(PORT10, ratio18_1, true);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 inertial DrivetrainInertial = inertial(PORT13);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
@@ -190,14 +190,14 @@ void autonomous(void) {
 void userControl(void) {
   Brain.Screen.clearScreen();
   // place driver control in this while loop
-  while (true) {
-    wait(20, msec);
     //Calibrating the Robot
     calibrateDrivetrain();
     Drivetrain.setDriveVelocity(85, percent);
     Drivetrain.setTurnVelocity(85, percent);
     Catapult.setMaxTorque(90, percent);
     Catapult.setVelocity(85, percent);
+  while (true) {
+    wait(20, msec);
   }
 }
 
@@ -220,7 +220,7 @@ int main() {
 
 //-----------------------------------------------------------------------------------------------
 //
-//     Auton must do the following actions:
+//     The robot do the following actions:
 //
 //     1. Remove the Triball from the Alliance’s Match Load Zone that coincides with their Starting
 //     Tiles.
