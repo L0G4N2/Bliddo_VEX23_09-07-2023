@@ -67,7 +67,7 @@ void playVexcodeSound(const char *soundName) {
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
-bool Controller1LeftShoulderControlMotorsStopped = true;
+bool Controller1RightShoulderControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
 
@@ -129,17 +129,17 @@ int rc_auto_loop_function_Controller1() {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
       }
-      // check the ButtonL1/ButtonL2 status to control Catapult
-      if (Controller1.ButtonL1.pressing()) {
-        Catapult.spin(forward);
-        Controller1LeftShoulderControlMotorsStopped = false;
-      } else if (Controller1.ButtonL2.pressing()) {
+      // check the ButtonR1/ButtonR2 status to control Catapult
+      if (Controller1.ButtonR1.pressing()) {
         Catapult.spin(reverse);
-        Controller1LeftShoulderControlMotorsStopped = false;
-      } else if (!Controller1LeftShoulderControlMotorsStopped) {
+        Controller1RightShoulderControlMotorsStopped = false;
+      } else if (Controller1.ButtonR2.pressing()) {
+        Catapult.spin(forward);
+        Controller1RightShoulderControlMotorsStopped = false;
+      } else if (!Controller1RightShoulderControlMotorsStopped) {
         Catapult.stop();
         // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
-        Controller1LeftShoulderControlMotorsStopped = true;
+        Controller1RightShoulderControlMotorsStopped = true;
       }
     }
     // wait before repeating the process
@@ -170,41 +170,34 @@ using namespace vex;
 // Begin project code
 
 void preAutonomous(void) {
-  //Actions to do when the program starts
+  // actions to do when the program starts
   Brain.Screen.clearScreen();
   Brain.Screen.print("pre auton code");
+  wait(1, seconds);
 }
 
 void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
-  //Setting drive velocity to the recommended max
-  Drivetrain.setDriveVelocity(85, percent);
-  //Calibrating the Inertial Sensor(Drivetrain)
+  //Calibrating the Robot
   calibrateDrivetrain();
-  //Drive forward for 0.7 seconds
-  Drivetrain.drive(forward);
-  wait(700, msec);
-  Drivetrain.stop();
-  }
-
-//-----------------------------------------------------------------------------------------------
-//
-//     The robot must do the following actions:
-//
-//     1. Remove the Triball from the Alliance’s Match Load Zone that coincides with their Starting
-//     Tiles.
-//     2. Score at least one Alliance Triball in the Alliance’s own Goal.
-//     3. Ended the Autonomous Period with at least one Robot contacting their own Elevation Bar.
-//     4. Not violate any rules.
-//
-//-----------------------------------------------------------------------------------------------
+  Drivetrain.setDriveVelocity(85, percent);
+  Drivetrain.setTurnVelocity(85, percent);
+  Catapult.setMaxTorque(90, percent);
+  Catapult.setVelocity(85, percent);
+}
 
 void userControl(void) {
   Brain.Screen.clearScreen();
   // place driver control in this while loop
   while (true) {
     wait(20, msec);
+    //Calibrating the Robot
+    calibrateDrivetrain();
+    Drivetrain.setDriveVelocity(85, percent);
+    Drivetrain.setTurnVelocity(85, percent);
+    Catapult.setMaxTorque(90, percent);
+    Catapult.setVelocity(85, percent);
   }
 }
 
@@ -224,3 +217,15 @@ int main() {
     wait(100, msec);
   }
 }
+
+//-----------------------------------------------------------------------------------------------
+//
+//     Auton must do the following actions:
+//
+//     1. Remove the Triball from the Alliance’s Match Load Zone that coincides with their Starting
+//     Tiles.
+//     2. Score at least one Alliance Triball in the Alliance’s own Goal.
+//     3. Ended the Autonomous Period with at least one Robot contacting their own Elevation Bar.
+//     4. Not violate any rules.
+//
+//-----------------------------------------------------------------------------------------------

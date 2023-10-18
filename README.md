@@ -6,6 +6,6 @@ There will be more updates as the season progresses.
 
 Auton: Work in progress
 
-Auton Skills: The robot starts on the right side of the net and continues on the *Auton* code.
+Auton Skills: Most of the code is commented out, it is from the summer of 2023.
 
 *Auton Skills is inspired from previous code that was made in the summer of 2023*
