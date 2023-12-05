@@ -183,7 +183,7 @@ void autonomous(void) {
   calibrateDrivetrain();
   Drivetrain.setDriveVelocity(85, percent);
   Drivetrain.setTurnVelocity(85, percent);
-  Catapult.setMaxTorque(90, percent);
+  Catapult.setMaxTorque(85, percent);
   Catapult.setVelocity(85, percent);
 }
 
@@ -194,7 +194,7 @@ void userControl(void) {
     calibrateDrivetrain();
     Drivetrain.setDriveVelocity(85, percent);
     Drivetrain.setTurnVelocity(85, percent);
-    Catapult.setMaxTorque(90, percent);
+    Catapult.setMaxTorque(85, percent);
     Catapult.setVelocity(85, percent);
   while (true) {
     wait(20, msec);

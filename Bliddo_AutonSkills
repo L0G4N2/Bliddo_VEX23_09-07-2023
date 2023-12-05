@@ -30,7 +30,7 @@ void autonomous(void) {
   calibrateDrivetrain();
   Drivetrain.setDriveVelocity(85, percent);
   Drivetrain.setTurnVelocity(85, percent);
-  Catapult.setMaxTorque(90, percent);
+  Catapult.setMaxTorque(85, percent);
   Catapult.setVelocity(85, percent);
   //Drive forward for 0.7 seconds
   Drivetrain.drive(forward);
