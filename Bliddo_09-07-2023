@@ -34,7 +34,7 @@ motor_group LeftDriveSmart = motor_group(leftMotorA, leftMotorB);
 motor rightMotorA = motor(PORT1, ratio18_1, true);
 motor rightMotorB = motor(PORT10, ratio18_1, true);
 motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
-inertial DrivetrainInertial = inertial(PORT13);
+inertial DrivetrainInertial = inertial(PORT7);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
 
 motor Catapult = motor(PORT17, ratio18_1, false);
@@ -173,29 +173,29 @@ void preAutonomous(void) {
   // actions to do when the program starts
   Brain.Screen.clearScreen();
   Brain.Screen.print("pre auton code");
-  wait(1, seconds);
+  //Calibrating the Robot
+  calibrateDrivetrain();
+  Drivetrain.setDriveVelocity(85, percent);
+  Drivetrain.setTurnVelocity(85, percent);
+  Catapult.setMaxTorque(90, percent);
+  Catapult.setVelocity(85, percent);
 }
 
 void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
-  //Calibrating the Robot
-  calibrateDrivetrain();
-  Drivetrain.setDriveVelocity(85, percent);
-  Drivetrain.setTurnVelocity(85, percent);
-  Catapult.setMaxTorque(85, percent);
-  Catapult.setVelocity(85, percent);
+  //Moving Triballs Over the Bar
+  Drivetrain.driveFor(forward, 960, mm);
+  Drivetrain.turnFor(left, 90, degrees);
+  Drivetrain.driveFor(forward, 910, mm);
+  wait(500, msec)
+  Drivetrain.driveFor(reverse, 660, mm);
+  Drivetrain.turnFor(right, 50, degrees);
 }
 
 void userControl(void) {
   Brain.Screen.clearScreen();
   // place driver control in this while loop
-    //Calibrating the Robot
-    calibrateDrivetrain();
-    Drivetrain.setDriveVelocity(85, percent);
-    Drivetrain.setTurnVelocity(85, percent);
-    Catapult.setMaxTorque(85, percent);
-    Catapult.setVelocity(85, percent);
   while (true) {
     wait(20, msec);
   }
