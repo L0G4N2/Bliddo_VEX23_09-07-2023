@@ -37,7 +37,11 @@ motor_group RightDriveSmart = motor_group(rightMotorA, rightMotorB);
 inertial DrivetrainInertial = inertial(PORT7);
 smartdrive Drivetrain = smartdrive(LeftDriveSmart, RightDriveSmart, DrivetrainInertial, 319.19, 320, 40, mm, 1);
 
-motor Catapult = motor(PORT17, ratio18_1, false);
+motor Catapult = motor(PORT17, ratio36_1, false);
+
+motor WingsMotorA = motor(PORT9, ratio18_1, true);
+motor WingsMotorB = motor(PORT2, ratio18_1, false);
+motor_group Wings = motor_group(WingsMotorA, WingsMotorB);
 
 
 void calibrateDrivetrain() {
@@ -67,6 +71,7 @@ void playVexcodeSound(const char *soundName) {
 // define variable for remote controller enable/disable
 bool RemoteControlCodeEnabled = true;
 // define variables used for controlling motors based on controller inputs
+bool Controller1LeftShoulderControlMotorsStopped = true;
 bool Controller1RightShoulderControlMotorsStopped = true;
 bool DrivetrainLNeedsToBeStopped_Controller1 = true;
 bool DrivetrainRNeedsToBeStopped_Controller1 = true;
@@ -129,6 +134,18 @@ int rc_auto_loop_function_Controller1() {
         RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
         RightDriveSmart.spin(forward);
       }
+      // check the ButtonL1/ButtonL2 status to control Wings
+      if (Controller1.ButtonL1.pressing()) {
+        Wings.spin(forward);
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else if (Controller1.ButtonL2.pressing()) {
+        Wings.spin(reverse);
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else if (!Controller1LeftShoulderControlMotorsStopped) {
+        Wings.stop();
+        // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
+        Controller1LeftShoulderControlMotorsStopped = true;
+      }
       // check the ButtonR1/ButtonR2 status to control Catapult
       if (Controller1.ButtonR1.pressing()) {
         Catapult.spin(reverse);
@@ -185,14 +202,31 @@ void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
   //Moving Triballs Over the Bar
+  // //Left Code
+  // Catapult.spin(forward);
+  // wait(1200, msec);
+  // Catapult.stop();
+  //Right Code
+  Catapult.spin(forward);
+  wait(1200, msec);
+  Catapult.stop();
+  //Push Triball Over the Bar
   Drivetrain.driveFor(forward, 960, mm);
-  Drivetrain.turnFor(left, 90, degrees);
+  Drivetrain.setTurnVelocity(15, percent);
+  Drivetrain.turn(left);
+  waitUntil((DrivetrainInertial.heading(degrees) <= 270.0 && (DrivetrainInertial.heading(degrees) >= 260.0)));
+  Drivetrain.stop();
+  Drivetrain.setTurnVelocity(85, percent);
   Drivetrain.driveFor(forward, 910, mm);
-  wait(500, msec)
+  wait(250, msec);
   Drivetrain.driveFor(reverse, 660, mm);
-  Drivetrain.turnFor(right, 50, degrees);
+  //Reposition Bot Before the Line
+  Drivetrain.setTurnVelocity(15, percent);
+  Drivetrain.turn(right);
+  waitUntil((DrivetrainInertial.heading(degrees) >= 0 && (DrivetrainInertial.heading(degrees) <= 10)));
+  Drivetrain.stop();
+  Drivetrain.setTurnVelocity(85, percent);
 }
-
 void userControl(void) {
   Brain.Screen.clearScreen();
   // place driver control in this while loop

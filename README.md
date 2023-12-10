@@ -4,8 +4,8 @@ The robot has a 4-Motor Drivetrain, a catapult, and an Inertial Sensor that is u
 
 There will be more updates as the season progresses.
 
-Auton: Robot starts on the tile adjacent to the *Match-Load Zone* and pushes a *Tri-Ball* over the *Barrier* into the *Offensive Zone* then reverses to turn into position preparing for *Driver-Control.*
+Auton Left: Robot starts on the left of the *Elevation Bar* and catapults a *Pre-Load* into the *Defensive Zone*.
 
-Auton Skills: Most of the code is commented out, it is from the summer of 2023.
+Auton Right: Robot starts on the right of the *Elevation Bar*, catapults a *Pre-Load* into the *Defensive Zone*, pushes a *Triball* over the *Bar*, then rearranges itself to face the *Line*.
 
-*Auton Skills is inspired from previous code that was made in the summer of 2023*
+Auton Skills: *Inspired from previous code that was made in the summer of 2023*.

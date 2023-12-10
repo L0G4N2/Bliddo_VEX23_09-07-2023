@@ -55,10 +55,28 @@ void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
   //Moving Triballs Over the Bar
+  // //Left Code
+  // Catapult.spin(forward);
+  // wait(1200, msec);
+  // Catapult.stop();
+  //Right Code
+  Catapult.spin(forward);
+  wait(1200, msec);
+  Catapult.stop();
+  //Push Triball Over the Bar
   Drivetrain.driveFor(forward, 960, mm);
-  Drivetrain.turnFor(left, 90, degrees);
+  Drivetrain.setTurnVelocity(15, percent);
+  Drivetrain.turn(left);
+  waitUntil((DrivetrainInertial.heading(degrees) <= 270.0 && (DrivetrainInertial.heading(degrees) >= 260.0)));
+  Drivetrain.stop();
+  Drivetrain.setTurnVelocity(85, percent);
   Drivetrain.driveFor(forward, 910, mm);
-  wait(500, msec)
+  wait(250, msec);
   Drivetrain.driveFor(reverse, 660, mm);
-  Drivetrain.turnFor(right, 50, degrees);
+  //Reposition Bot Before the Line
+  Drivetrain.setTurnVelocity(15, percent);
+  Drivetrain.turn(right);
+  waitUntil((DrivetrainInertial.heading(degrees) >= 0 && (DrivetrainInertial.heading(degrees) <= 10)));
+  Drivetrain.stop();
+  Drivetrain.setTurnVelocity(85, percent);
 }
