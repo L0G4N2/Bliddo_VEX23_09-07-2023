@@ -202,11 +202,26 @@ void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
   //Moving Triballs Over the Bar
-  // //Left Code
-  // Catapult.spin(forward);
-  // wait(1200, msec);
-  // Catapult.stop();
-  //Right Code
+  //Offensive Code
+  Drivetrain.setDriveVelocity(100, percent);
+  Drivetrain.drive(reverse);
+  wait(3, seconds);
+  Drivetrain.stop();
+  Drivetrain.drive(forward);
+  wait(0.75, seconds);
+  Drivetrain.stop();
+  Drivetrain.setDriveVelocity(85, percent);
+  Drivetrain.setTurnVelocity(15, percent);
+  Drivetrain.turn(left);
+  waitUntil((DrivetrainInertial.heading(degrees) >= 240.0 && (DrivetrainInertial.heading(degrees) <= 250.0)));
+  Drivetrain.stop();
+  Drivetrain.setTurnVelocity(85, percent);
+  Drivetrain.setDriveVelocity(50, percent);
+  Drivetrain.drive(reverse);
+  wait(1.35, seconds);
+  Drivetrain.stop();
+  Drivetrain.setDriveVelocity(85, percent);
+  //Defensive Code
   Catapult.spin(forward);
   wait(1200, msec);
   Catapult.stop();
