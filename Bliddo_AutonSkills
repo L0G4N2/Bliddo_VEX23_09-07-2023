@@ -38,13 +38,26 @@ void preAutonomous(void) {
 void autonomous(void) {
   Brain.Screen.clearScreen();
   Brain.Screen.print("autonomous code");
-  //Moving Triballs Over the Bar
-  Drivetrain.driveFor(forward, 960, mm);
-  Drivetrain.turnFor(left, 90, degrees);
-  Drivetrain.driveFor(forward, 910, mm);
-  wait(500, msec)
-  Drivetrain.driveFor(reverse, 660, mm);
-  Drivetrain.turnFor(right, 50, degrees);
+  CatapultLock.spin(reverse);
+  wait(250, msec);
+  CatapultLock.stop();
+  Catapult.spin(forward);
+  wait(5000, msec);
+  Drivetrain.turnFor(left, 10, degrees);
+  wait(5000, msec);
+  Drivetrain.turnFor(left, 10, degrees);
+  wait(5000, msec);
+  Drivetrain.turnFor(left, 10, degrees);
+  wait(5000, msec);
+  Drivetrain.turnFor(left, 10, degrees);
+  Catapult.stop();
+  Drivetrain.drive(forward);
+  wait(2500, msec);
+  waitUntil((DrivetrainInertial.orientation(pitch, degrees) > 0));
+  Drivetrain.stop();
+  Drivetrain.drive(forward);
+  wait(1500, msec);
+  Drivetrain.stop();
 }
   // //90 degree turn with inertial sensor
   // Drivetrain.turn(right);

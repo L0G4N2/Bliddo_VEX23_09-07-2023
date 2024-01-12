@@ -4,8 +4,8 @@ The robot has a 4-Motor Drivetrain, a catapult, and an Inertial Sensor that is u
 
 There will be more updates as the season progresses.
 
-Auton Left: Robot starts on the left of the *Elevation Bar* and catapults a *Pre-Load* into the *Defensive Zone*.
+Left_Logangster(Left Auton): Robot starts left of the *Elevation Bar* positioned towards the Opponents Goal and pushes a *Pre-Load* into it then repositions itself to face the *Elevation Bar* and drive into it.
 
-Auton Right: Robot starts on the right of the *Elevation Bar*, catapults a *Pre-Load* into the *Defensive Zone*, pushes a *Triball* over the *Bar*, then rearranges itself to face the *Line*.
+Right_Logangster(Auton Right): Robot starts right of the *Elevation Bar* positioned towards the Alliances Goal and pushes a *Pre-Load* into it then repositions itself to face the *Elevation Bar* and drive into it.
 
-Auton Skills: *Inspired from previous code that was made in the summer of 2023*.
+Auton Skills: The Robot starts catapulting *Match-Loads* into the *Red Defensive Zone* for 20 seconds then attempts to drive over the black bar into the *Red Offensive Zone* to push *Triballs* into the *Red Goal* to score the maximum amount of points.
