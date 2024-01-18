@@ -8,4 +8,4 @@ Left_Logangster(Left Auton): Robot starts left of the *Elevation Bar* positioned
 
 Right_Logangster(Auton Right): Robot starts right of the *Elevation Bar* positioned towards the Alliances Goal and pushes a *Pre-Load* into it then repositions itself to face the *Elevation Bar* and drive into it.
 
-Auton Skills: The Robot starts catapulting *Match-Loads* into the *Red Defensive Zone* for 20 seconds then attempts to drive over the black bar into the *Red Offensive Zone* to push *Triballs* into the *Red Goal* to score the maximum amount of points.
+Auton Skills: The Robot catapults a *Pre-Load* over the *Long Bar* and then launches other *Triballs* over the *Long Bar* through *Match Loading* for the whole minute of *Autonomous.*

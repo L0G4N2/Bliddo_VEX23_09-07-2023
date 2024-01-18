@@ -32,7 +32,7 @@ void preAutonomous(void) {
   Drivetrain.setDriveVelocity(85, percent);
   Drivetrain.setTurnVelocity(85, percent);
   Catapult.setMaxTorque(90, percent);
-  Catapult.setVelocity(85, percent);
+  Catapult.setVelocity(90, percent);
 }
 
 void autonomous(void) {
@@ -43,21 +43,17 @@ void autonomous(void) {
   CatapultLock.stop();
   Catapult.spin(forward);
   wait(5000, msec);
-  Drivetrain.turnFor(left, 10, degrees);
+  Drivetrain.turnFor(left, 8, degrees);
   wait(5000, msec);
-  Drivetrain.turnFor(left, 10, degrees);
+  Drivetrain.turnFor(left, 8, degrees);
   wait(5000, msec);
-  Drivetrain.turnFor(left, 10, degrees);
-  wait(5000, msec);
-  Drivetrain.turnFor(left, 10, degrees);
-  Catapult.stop();
-  Drivetrain.drive(forward);
-  wait(2500, msec);
-  waitUntil((DrivetrainInertial.orientation(pitch, degrees) > 0));
-  Drivetrain.stop();
-  Drivetrain.drive(forward);
-  wait(1500, msec);
-  Drivetrain.stop();
+  while (true) {
+    Drivetrain.drive(reverse);
+    wait(500, msec);
+    Drivetrain.stop();
+    Drivetrain.turnFor(right, 10, degrees);
+    wait(3500, msec);
+  }
 }
   // //90 degree turn with inertial sensor
   // Drivetrain.turn(right);

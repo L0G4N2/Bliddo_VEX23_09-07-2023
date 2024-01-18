@@ -195,7 +195,7 @@ void preAutonomous(void) {
   Drivetrain.setDriveVelocity(85, percent);
   Drivetrain.setTurnVelocity(85, percent);
   Catapult.setMaxTorque(90, percent);
-  Catapult.setVelocity(85, percent);
+  Catapult.setVelocity(90, percent);
 }
 
 void autonomous(void) {
